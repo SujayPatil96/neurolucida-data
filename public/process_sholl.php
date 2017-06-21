@@ -25,6 +25,7 @@
     $filaRadius = [];
     $uniqueRad = [];
     $positionsRad = [];
+    $radFilamennts = [];
 
     // use this concept
     // $rowData[0][0] // gives the first column within for loop
@@ -70,14 +71,21 @@
     echo "</pre>";
     echo "<hr />";
 
+    $i = 0;
     // print all the filament numbers with positions in $positionsRad
     foreach ($positionsRad as $key => $value) {
         foreach ($value as $subkey => $subvalue) {
-            echo $filamentNumber[$subvalue];
-            echo "<br />";
+            // echo $filamentNumber[$subvalue];
+            // echo "<br />";
+            $radFilaments[$i][] = $filamentNumber[$subvalue];
         }
-        echo "<hr />";
+        $i++;
     }
+
+    // print out the filament numbers in associative array format
+    echo "<pre>";
+        print_r($radFilaments);
+    echo "</pre>";
 
     // print out the filament numbers
     // echo "<pre>";
