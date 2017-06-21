@@ -37,16 +37,45 @@
 	<br>
     <h1>Brief Documentation.</h1>
 
-	<form action="split_workbook.php" method="post" enctype="multipart/form-data" id="admin_panel">
+	<form action="upload_worksheets.php" method="post" enctype="multipart/form-data" id="admin_panel">
 
 	<fieldset>
 		<legend><span class="number">1</span>Attachments</legend>
 	</fieldset>
-			<label for="init_workbook">Attach a copy of the Excel Workbook here:</label>
-			<input type="file" id="init_workbook" name="init_workbook" />
-			<br /><br /><br /><br />
 
-	  <button type="submit" name="submit" id="submit">Submit</button>
+	<div class="vertical_line1">
+		<label for="dendrite_area">Attach a Dendrite Area Excel sheet here:</label>
+		<input type="file" id="dendrite_area" name="dendrite_area" />
+		<br /><br />
+
+		<label for="dendrite_length">Attach a Dendrite Length Excel sheet here:</label>
+		<input type="file" id="dendrite_length" name="dendrite_length" />
+		<br /><br />
+
+		<label for="dendrite_volume">Attach a Dendrite Volume Excel sheet here:</label>
+		<input type="file" id="dendrite_volume" name="dendrite_volume" />
+		<br /><br />
+	</div>
+
+	<div class="vertical_line2">
+		<label for="fda_sheet">Attach a copy of the FDA (sum) Excel sheet here:</label>
+		<input type="file" id="fda_sheet" name="fda_sheet" />
+		<br /><br />
+
+		<label for="fdv_sheet">Attach a copy of the FDV (sum) Excel sheet here:</label>
+		<input type="file" id="fdv_sheet" name="fdv_sheet" />
+		<br /><br />
+
+		<label for="filament_length">Attach a copy of the Filament Length (sum) Excel sheet here:</label>
+		<input type="file" id="filament_length" name="filament_length" />
+		<br /><br />
+
+		<label for="sholl_ints">Attach a copy of the No. of Sholl Intersections Excel sheet here:</label>
+		<input type="file" id="sholl_ints" name="sholl_ints" />
+		<br /><br />
+	</div>
+
+	<button type="submit" name="submit" id="submit">Submit</button>
 	</form>
 
 </body>
