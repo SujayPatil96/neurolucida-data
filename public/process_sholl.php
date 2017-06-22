@@ -1,3 +1,17 @@
+<!DOCTYPE HTML>
+<head>
+    <title>Processed Sholl Data</title>
+</head>
+<!-- <link rel="stylesheet" href="css/main.css"> -->
+<h1 style="text-align: center;">Sholl analysis data</h1>
+<style type="text/css">
+    td {
+        border: 1px solid black;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+
 <?php
     //  Include PHPExcel_IOFactory
     include '../includes/PHPExcel/Classes/PHPExcel.php';
@@ -10,7 +24,7 @@
         $objReader = PHPExcel_IOFactory::createReader($inputFileType);
         $objPHPExcel = $objReader->load($inputFileName);
     } catch(Exception $e) {
-        die('Error loading file "' . pathinfo($inputFileName,PATHINFO_BASENAME) . '": ' . $e->getMessage());
+        die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
     }
 
     //  Get worksheet dimensions
@@ -26,12 +40,15 @@
     $uniqueRad = [];
     $positionsRad = [];
     $radFilamennts = [];
+    $filamentSum = []; // contains the sum of the number of filaments for each radius
+    $radID = [];    // contains the filament IDs associated with a specific radius
+    $filamentImplode = [];  // contains the filament IDs imploded
 
     // use this concept
     // $rowData[0][0] // gives the first column within for loop
 
     //  Loop through each row of the worksheet in turn
-    for ($row = 1; $row <= $highestRow; $row++){
+    for ($row = 1; $row <= $highestRow; $row++) {
         //  Read a row of data into an array
         $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
                                         NULL,
@@ -49,12 +66,14 @@
     }
     // total count of the radius array
     $totRadCount = count($radius);
+
     // eliminate duplicate values from the $radius array
     $uniqueRad = array_unique($radius);
     $uniqueRad = array_slice($uniqueRad, 2);
     $radCount = count($uniqueRad); // removing all the headers and blank cells
 
     $radius = array_slice($radius, 2);  // slice the radius array to remove the first 2 rows
+    $filamentID = array_slice($filamentID, 2);  // slice the filamentID array to remove the first 2 rows
     $filamentNumber = array_slice($filamentNumber, 2);  // slice the filamentNumber array to remove the first 2 rows
 
     // find out all the positions associated with a value of radius
@@ -66,10 +85,11 @@
         }
     }
 
-    echo "<pre>";
-        print_r($positionsRad);
-    echo "</pre>";
-    echo "<hr />";
+    // array to filter out the positions of specific radii
+    // echo "<pre>";
+    //     print_r($positionsRad);
+    // echo "</pre>";
+    // echo "<hr />";
 
     $i = 0;
     // print all the filament numbers with positions in $positionsRad
@@ -87,21 +107,52 @@
         print_r($radFilaments);
     echo "</pre>";
 
-    // print out the filament numbers
-    // echo "<pre>";
-    //     print_r($filamentNumber);
-    // echo "</pre>";
-    // echo "<hr />";
+    // compute the sum of the number of filaments for each radius
+    foreach ($radFilaments as $key => $value) {
+        $filamentSum[] = array_sum($value);
+    }
 
-    // print out the radius
-    // echo "<pre>";
-    //     print_r($radius);
-    // echo "</pre>";
-    // echo "<hr />";
+    echo "<hr />";
+    // print out the filament sum values
+    echo "<pre>";
+        print_r($filamentSum);
+    echo "</pre>";
 
-    // print out the unique radii
-    // echo "<pre>";
-    //     print_r($uniqueRad);
-    // echo "</pre>";
-    // echo "<hr />";
+    echo "<hr />";
+    $j = 0;
+    foreach ($positionsRad as $key => $value) {
+        foreach ($value as $subkey => $subvalue) {
+            $radID[$j][] = $filamentID[$subvalue];
+        }
+        $j++;
+    }
+
+    // print out the $radID array
+    echo "<pre>";
+        print_r($radID);
+    echo "</pre>";
+
+    echo "<hr />";
+    $j = 0;
+    // implode all the filament IDs into $filamentImplode array
+    foreach ($radID as $key => $value) {
+        $filamentImplode = implode(', ', $value);
+    }
+?>
+
+<?php
+    // print out all of the array data from the above PHP block into HTML tables
+    echo "<table>";
+    $j = 0;
+    // implode all the filament IDs into $filamentImplode array
+    foreach ($radID as $key => $value) {
+        $filamentImplode = implode(', ', $value);
+        echo "<tr>";
+        echo "<td>" . $j . ". " . "</td>";
+            print_r("<td>" . $filamentImplode . "</td>");
+            print_r("<td>" . $filamentSum[$j] . "</td>");
+        echo "</tr>";
+        $j++;
+    }
+    echo "</table>";
 ?>
