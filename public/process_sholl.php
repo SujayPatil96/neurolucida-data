@@ -5,7 +5,7 @@
 <!-- <link rel="stylesheet" href="css/main.css"> -->
 <h1 style="text-align: center;">Sholl analysis data</h1>
 <style type="text/css">
-    td {
+    td, th {
         border: 1px solid black;
         padding-left: 10px;
         padding-right: 10px;
@@ -118,7 +118,7 @@
     //     print_r($filamentSum);
     // echo "</pre>";
 
-    echo "<hr />";
+    // echo "<hr />";
     $j = 0;
     foreach ($positionsRad as $key => $value) {
         foreach ($value as $subkey => $subvalue) {
@@ -145,10 +145,11 @@
     echo "<table>";
     $j = 0;
     // implode all the filament IDs into $filamentImplode array
+    echo "<th>Radius</th><th>Filament IDs</th><th>No. of sholl intersections</th>";
     foreach ($radID as $key => $value) {
         $filamentImplode = implode(', ', $value);
         echo "<tr>";
-        echo "<td>" . $j . ". " . "</td>";
+        echo "<td>" . $j . "</td>";
             print_r("<td>" . $filamentImplode . "</td>");
             print_r("<td>" . $filamentSum[$j] . "</td>");
         echo "</tr>";
@@ -182,7 +183,7 @@
     $dendriteArea = []; // values of all the dendrite areas
     $dendriteFilamentID = [];   // filament IDs associated with Dendrite Area
 
-    echo "<hr />";
+    // echo "<hr />";
     //  Loop through each row of the worksheet in turn
     for ($row = 3; $row <= $highestRow; $row++) {
         //  Read a row of data into an array
@@ -190,22 +191,22 @@
                                         NULL,
                                         TRUE,
                                         FALSE);
-        print_r($rowData[0]);
-        echo "<hr />";
+        // print_r($rowData[0]);
+        // echo "<hr />";
 
         $dendriteArea[] = $rowData[0][0];   // copy all the values of DA into $dendriteArea
         $dendriteFilamentID[] = $rowData[0][6]; // copy all the values of Filament ID into $dendriteFilamentID
     }
 
     // print out the Dendrite Area values
-    echo "<pre>";
-    print_r($dendriteArea);
-    echo "</pre>";
-
-    // print out the Filament ID values
-    echo "<pre>";
-    print_r($dendriteFilamentID);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($dendriteArea);
+    // echo "</pre>";
+    //
+    // // print out the Filament ID values
+    // echo "<pre>";
+    // print_r($dendriteFilamentID);
+    // echo "</pre>";
 ?>
 
 <?php
@@ -232,7 +233,7 @@
     // declare all the arrays you need
     $dendriteLength = []; // values of all the dendrite areas
 
-    echo "<hr />";
+    // echo "<hr />";
     //  Loop through each row of the worksheet in turn
     for ($row = 3; $row <= $highestRow; $row++) {
         //  Read a row of data into an array
@@ -240,16 +241,16 @@
                                         NULL,
                                         TRUE,
                                         FALSE);
-        print_r($rowData[0]);
-        echo "<hr />";
+        // print_r($rowData[0]);
+        // echo "<hr />";
 
         $dendriteLength[] = $rowData[0][0];   // copy all the values of DA into $dendriteLength
     }
 
     // print out the Dendrite Area values
-    echo "<pre>";
-    print_r($dendriteLength);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($dendriteLength);
+    // echo "</pre>";
 ?>
 
 <?php
@@ -276,7 +277,7 @@
     // declare all the arrays you need
     $dendriteVolume = []; // values of all the dendrite areas
 
-    echo "<hr />";
+    // echo "<hr />";
     //  Loop through each row of the worksheet in turn
     for ($row = 3; $row <= $highestRow; $row++) {
         //  Read a row of data into an array
@@ -284,16 +285,56 @@
                                         NULL,
                                         TRUE,
                                         FALSE);
-        print_r($rowData[0]);
-        echo "<hr />";
+        // print_r($rowData[0]);
+        // echo "<hr />";
 
         $dendriteVolume[] = $rowData[0][0];   // copy all the values of DA into $dendriteVolume
     }
 
     // print out the Dendrite Area values
-    echo "<pre>";
-    print_r($dendriteVolume);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($dendriteVolume);
+    // echo "</pre>";
+?>
+
+<?php
+    echo "<hr />";
+    // table to combine filament ID, dendrite area, length and volume
+    echo "<table style=\"float: left;\">";
+    echo "<th>Filament ID</th>";
+        foreach ($dendriteFilamentID as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+        }
+    echo "</table>";
+
+    echo "<table style=\"float: left;\">";
+    echo "<th>Dendrite Area</th>";
+        foreach ($dendriteArea as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+        }
+    echo "</table>";
+
+    echo "<table style=\"float: left;\">";
+    echo "<th>Dendrite Length</th>";
+        foreach ($dendriteLength as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+        }
+    echo "</table>";
+
+    echo "<table>";
+    echo "<th>Dendrite Volume</th>";
+        foreach ($dendriteVolume as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+        }
+    echo "</table>";
 ?>
 
 <?php
@@ -321,7 +362,7 @@
     $denAreaSum = []; // values of all the dendrite areas
     $filDenID = [];    // filament IDs associated with dendrite area (sum) values
 
-    echo "<hr />";
+    // echo "<hr />";
     //  Loop through each row of the worksheet in turn
     for ($row = 3; $row <= $highestRow; $row++) {
         //  Read a row of data into an array
@@ -329,22 +370,22 @@
                                         NULL,
                                         TRUE,
                                         FALSE);
-        print_r($rowData[0]);
-        echo "<hr />";
+        // print_r($rowData[0]);
+        // echo "<hr />";
 
         $denAreaSum[] = $rowData[0][0];   // copy all the values of DA into $denAreaSum
         $filDenID[] = $rowData[0][4];  // copy all the filament ID values into $filDenID
     }
 
     // print out the Dendrite Area values
-    echo "<pre>";
-    print_r($denAreaSum);
-    echo "</pre>";
-
-    // print out the Filament IDs
-    echo "<pre>";
-    print_r($filDenID);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($denAreaSum);
+    // echo "</pre>";
+    //
+    // // print out the Filament IDs
+    // echo "<pre>";
+    // print_r($filDenID);
+    // echo "</pre>";
 ?>
 
 <?php
@@ -371,7 +412,7 @@
     // declare all the arrays you need
     $filamentLength = []; // values of all the dendrite areas
 
-    echo "<hr />";
+    // echo "<hr />";
     //  Loop through each row of the worksheet in turn
     for ($row = 3; $row <= $highestRow; $row++) {
         //  Read a row of data into an array
@@ -379,16 +420,16 @@
                                         NULL,
                                         TRUE,
                                         FALSE);
-        print_r($rowData[0]);
-        echo "<hr />";
+        // print_r($rowData[0]);
+        // echo "<hr />";
 
         $filamentLength[] = $rowData[0][0];   // copy all the values of DA into $filamentLength
     }
 
     // print out the Dendrite Area values
-    echo "<pre>";
-    print_r($filamentLength);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($filamentLength);
+    // echo "</pre>";
 ?>
 
 <?php
@@ -415,7 +456,7 @@
     // declare all the arrays you need
     $filDenVolume = []; // values of all the dendrite areas
 
-    echo "<hr />";
+    // echo "<hr />";
     //  Loop through each row of the worksheet in turn
     for ($row = 3; $row <= $highestRow; $row++) {
         //  Read a row of data into an array
@@ -423,14 +464,55 @@
                                         NULL,
                                         TRUE,
                                         FALSE);
-        print_r($rowData[0]);
-        echo "<hr />";
+        // print_r($rowData[0]);
+        // echo "<hr />";
 
         $filDenVolume[] = $rowData[0][0];   // copy all the values of DA into $filDenVolume
     }
 
     // print out the Dendrite Area values
-    echo "<pre>";
-    print_r($filDenVolume);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($filDenVolume);
+    // echo "</pre>";
+?>
+
+<?php
+    echo "<hr />";
+    // print out the table containing the data from filament dendrite area, length and volume (sum)
+    echo "<table style=\"float: left;\">";
+    echo "<th>Filament ID</th>";
+        foreach ($filDenID as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+        }
+    echo "</table>";
+
+    echo "<table style=\"float: left;\">";
+    echo "<th>Filament Dendrite Area (sum)</th>";
+        foreach ($denAreaSum as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+        }
+    echo "</table>";
+
+    echo "<table style=\"float: left;\">";
+    echo "<th>Filament Length (sum)</th>";
+        foreach ($filamentLength as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+        }
+    echo "</table>";
+
+    echo "<table>";
+    echo "<th>Filament Dendrite Volume (sum)</th>";
+        foreach ($filDenVolume as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value . "</td>";
+            echo "</tr>";
+        }
+    echo "</table>";
+
 ?>
