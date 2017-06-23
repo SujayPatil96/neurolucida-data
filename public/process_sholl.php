@@ -103,20 +103,20 @@
     }
 
     // print out the filament numbers in associative array format
-    echo "<pre>";
-        print_r($radFilaments);
-    echo "</pre>";
+    // echo "<pre>";
+    //     print_r($radFilaments);
+    // echo "</pre>";
 
     // compute the sum of the number of filaments for each radius
     foreach ($radFilaments as $key => $value) {
         $filamentSum[] = array_sum($value);
     }
 
-    echo "<hr />";
+    // echo "<hr />";
     // print out the filament sum values
-    echo "<pre>";
-        print_r($filamentSum);
-    echo "</pre>";
+    // echo "<pre>";
+    //     print_r($filamentSum);
+    // echo "</pre>";
 
     echo "<hr />";
     $j = 0;
@@ -128,11 +128,11 @@
     }
 
     // print out the $radID array
-    echo "<pre>";
-        print_r($radID);
-    echo "</pre>";
+    // echo "<pre>";
+    //     print_r($radID);
+    // echo "</pre>";
 
-    echo "<hr />";
+    // echo "<hr />";
     $j = 0;
     // implode all the filament IDs into $filamentImplode array
     foreach ($radID as $key => $value) {
@@ -155,4 +155,282 @@
         $j++;
     }
     echo "</table>";
+?>
+
+<?php
+    // script to process Dendrite Area values
+    $inputFileName = 'data\wd\Dendrite Area.xls';
+
+    //  Read your Excel worksheet
+    try {
+        $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($inputFileName);
+    } catch(Exception $e) {
+        die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+    }
+
+    //  Get worksheet dimensions
+    $sheet = $objPHPExcel->getSheet(0);
+    $highestRow = $sheet->getHighestRow();
+    $highestColumn = $sheet->getHighestColumn();
+
+    // use this concept
+    // $rowData[0][0] // gives the first column within for loop
+
+    // declare all the arrays you need
+    $dendriteArea = []; // values of all the dendrite areas
+    $dendriteFilamentID = [];   // filament IDs associated with Dendrite Area
+
+    echo "<hr />";
+    //  Loop through each row of the worksheet in turn
+    for ($row = 3; $row <= $highestRow; $row++) {
+        //  Read a row of data into an array
+        $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                        NULL,
+                                        TRUE,
+                                        FALSE);
+        print_r($rowData[0]);
+        echo "<hr />";
+
+        $dendriteArea[] = $rowData[0][0];   // copy all the values of DA into $dendriteArea
+        $dendriteFilamentID[] = $rowData[0][6]; // copy all the values of Filament ID into $dendriteFilamentID
+    }
+
+    // print out the Dendrite Area values
+    echo "<pre>";
+    print_r($dendriteArea);
+    echo "</pre>";
+
+    // print out the Filament ID values
+    echo "<pre>";
+    print_r($dendriteFilamentID);
+    echo "</pre>";
+?>
+
+<?php
+    // script to process the Dendrite Length
+    $inputFileName = 'data\wd\Dendrite Length.xls';
+
+    //  Read your Excel worksheet
+    try {
+        $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($inputFileName);
+    } catch(Exception $e) {
+        die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+    }
+
+    //  Get worksheet dimensions
+    $sheet = $objPHPExcel->getSheet(0);
+    $highestRow = $sheet->getHighestRow();
+    $highestColumn = $sheet->getHighestColumn();
+
+    // use this concept
+    // $rowData[0][0] // gives the first column within for loop
+
+    // declare all the arrays you need
+    $dendriteLength = []; // values of all the dendrite areas
+
+    echo "<hr />";
+    //  Loop through each row of the worksheet in turn
+    for ($row = 3; $row <= $highestRow; $row++) {
+        //  Read a row of data into an array
+        $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                        NULL,
+                                        TRUE,
+                                        FALSE);
+        print_r($rowData[0]);
+        echo "<hr />";
+
+        $dendriteLength[] = $rowData[0][0];   // copy all the values of DA into $dendriteLength
+    }
+
+    // print out the Dendrite Area values
+    echo "<pre>";
+    print_r($dendriteLength);
+    echo "</pre>";
+?>
+
+<?php
+    // script to process the Dendrite Volume
+    $inputFileName = 'data\wd\Dendrite Volume.xls';
+
+    //  Read your Excel worksheet
+    try {
+        $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($inputFileName);
+    } catch(Exception $e) {
+        die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+    }
+
+    //  Get worksheet dimensions
+    $sheet = $objPHPExcel->getSheet(0);
+    $highestRow = $sheet->getHighestRow();
+    $highestColumn = $sheet->getHighestColumn();
+
+    // use this concept
+    // $rowData[0][0] // gives the first column within for loop
+
+    // declare all the arrays you need
+    $dendriteVolume = []; // values of all the dendrite areas
+
+    echo "<hr />";
+    //  Loop through each row of the worksheet in turn
+    for ($row = 3; $row <= $highestRow; $row++) {
+        //  Read a row of data into an array
+        $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                        NULL,
+                                        TRUE,
+                                        FALSE);
+        print_r($rowData[0]);
+        echo "<hr />";
+
+        $dendriteVolume[] = $rowData[0][0];   // copy all the values of DA into $dendriteVolume
+    }
+
+    // print out the Dendrite Area values
+    echo "<pre>";
+    print_r($dendriteVolume);
+    echo "</pre>";
+?>
+
+<?php
+    // script to process the Dendrite Area (sum)
+    $inputFileName = 'data\wd\Filament Dendrite Area (sum).xls';
+
+    //  Read your Excel worksheet
+    try {
+        $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($inputFileName);
+    } catch(Exception $e) {
+        die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+    }
+
+    //  Get worksheet dimensions
+    $sheet = $objPHPExcel->getSheet(0);
+    $highestRow = $sheet->getHighestRow();
+    $highestColumn = $sheet->getHighestColumn();
+
+    // use this concept
+    // $rowData[0][0] // gives the first column within for loop
+
+    // declare all the arrays you need
+    $denAreaSum = []; // values of all the dendrite areas
+    $filDenID = [];    // filament IDs associated with dendrite area (sum) values
+
+    echo "<hr />";
+    //  Loop through each row of the worksheet in turn
+    for ($row = 3; $row <= $highestRow; $row++) {
+        //  Read a row of data into an array
+        $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                        NULL,
+                                        TRUE,
+                                        FALSE);
+        print_r($rowData[0]);
+        echo "<hr />";
+
+        $denAreaSum[] = $rowData[0][0];   // copy all the values of DA into $denAreaSum
+        $filDenID[] = $rowData[0][4];  // copy all the filament ID values into $filDenID
+    }
+
+    // print out the Dendrite Area values
+    echo "<pre>";
+    print_r($denAreaSum);
+    echo "</pre>";
+
+    // print out the Filament IDs
+    echo "<pre>";
+    print_r($filDenID);
+    echo "</pre>";
+?>
+
+<?php
+    // script to process all the filament lengths
+    $inputFileName = 'data\wd\Filament Length (sum).xls';
+
+    //  Read your Excel worksheet
+    try {
+        $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($inputFileName);
+    } catch(Exception $e) {
+        die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+    }
+
+    //  Get worksheet dimensions
+    $sheet = $objPHPExcel->getSheet(0);
+    $highestRow = $sheet->getHighestRow();
+    $highestColumn = $sheet->getHighestColumn();
+
+    // use this concept
+    // $rowData[0][0] // gives the first column within for loop
+
+    // declare all the arrays you need
+    $filamentLength = []; // values of all the dendrite areas
+
+    echo "<hr />";
+    //  Loop through each row of the worksheet in turn
+    for ($row = 3; $row <= $highestRow; $row++) {
+        //  Read a row of data into an array
+        $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                        NULL,
+                                        TRUE,
+                                        FALSE);
+        print_r($rowData[0]);
+        echo "<hr />";
+
+        $filamentLength[] = $rowData[0][0];   // copy all the values of DA into $filamentLength
+    }
+
+    // print out the Dendrite Area values
+    echo "<pre>";
+    print_r($filamentLength);
+    echo "</pre>";
+?>
+
+<?php
+    // script to process all the filament dendrite volume (sum) values
+    $inputFileName = 'data\wd\Filament Dendrite Volume (sum).xls';
+
+    //  Read your Excel worksheet
+    try {
+        $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($inputFileName);
+    } catch(Exception $e) {
+        die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+    }
+
+    //  Get worksheet dimensions
+    $sheet = $objPHPExcel->getSheet(0);
+    $highestRow = $sheet->getHighestRow();
+    $highestColumn = $sheet->getHighestColumn();
+
+    // use this concept
+    // $rowData[0][0] // gives the first column within for loop
+
+    // declare all the arrays you need
+    $filDenVolume = []; // values of all the dendrite areas
+
+    echo "<hr />";
+    //  Loop through each row of the worksheet in turn
+    for ($row = 3; $row <= $highestRow; $row++) {
+        //  Read a row of data into an array
+        $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                        NULL,
+                                        TRUE,
+                                        FALSE);
+        print_r($rowData[0]);
+        echo "<hr />";
+
+        $filDenVolume[] = $rowData[0][0];   // copy all the values of DA into $filDenVolume
+    }
+
+    // print out the Dendrite Area values
+    echo "<pre>";
+    print_r($filDenVolume);
+    echo "</pre>";
 ?>
