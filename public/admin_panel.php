@@ -43,37 +43,9 @@
 		<legend><span class="number">1</span>Attachments</legend>
 	</fieldset>
 
-	<div class="vertical_line1">
-		<label for="dendrite_area">Attach a Dendrite Area Excel sheet here:</label>
-		<input type="file" id="dendrite_area" name="dendrite_area" />
-		<br /><br />
-
-		<label for="dendrite_length">Attach a Dendrite Length Excel sheet here:</label>
-		<input type="file" id="dendrite_length" name="dendrite_length" />
-		<br /><br />
-
-		<label for="dendrite_volume">Attach a Dendrite Volume Excel sheet here:</label>
-		<input type="file" id="dendrite_volume" name="dendrite_volume" />
-		<br /><br />
-	</div>
-
-	<div class="vertical_line2">
-		<label for="fda_sheet">Attach a copy of the FDA (sum) Excel sheet here:</label>
-		<input type="file" id="fda_sheet" name="fda_sheet" />
-		<br /><br />
-
-		<label for="fdv_sheet">Attach a copy of the FDV (sum) Excel sheet here:</label>
-		<input type="file" id="fdv_sheet" name="fdv_sheet" />
-		<br /><br />
-
-		<label for="filament_length">Attach a copy of the Filament Length (sum) Excel sheet here:</label>
-		<input type="file" id="filament_length" name="filament_length" />
-		<br /><br />
-
-		<label for="sholl_ints">Attach a copy of the No. of Sholl Intersections Excel sheet here:</label>
-		<input type="file" id="sholl_ints" name="sholl_ints" />
-		<br /><br />
-	</div>
+	<label for="filament_tracer">Attach the Filament Tracer Excel sheet here:</label>
+	<input type="file" id="filament_tracer" name="filament_tracer" />
+	<br /><br />
 
 	<button type="submit" name="submit" id="submit">Submit</button>
 	</form>
