@@ -2,15 +2,21 @@
 <head>
     <title>Processed Sholl Data</title>
 </head>
-<!-- <link rel="stylesheet" href="css/main.css"> -->
-<h1 style="text-align: center;">Sholl analysis data</h1>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,700,700i" rel="stylesheet">
+
 <style type="text/css">
-    td, th {
-        border: 1px solid black;
-        padding-left: 10px;
-        padding-right: 10px;
+    html {
+        font-family: Josefin Sans;
+    }
+    button {
+        color: white;
     }
 </style>
+
+<h3 style="text-align: center;"><u><b>Sholl analysis data<b></u></h3>
 
 <?php
     //  Include PHPExcel_IOFactory
@@ -142,7 +148,7 @@
 
 <?php
     // print out all of the array data from the above PHP block into HTML tables
-    echo "<table>";
+    echo "<table id=\"table_wd1\">";
     $j = 0;
     // implode all the filament IDs into $filamentImplode array
     echo "<th>Radius</th><th>Filament IDs</th><th>No. of sholl intersections</th>";
@@ -156,6 +162,7 @@
         $j++;
     }
     echo "</table>";
+    echo "<hr />";
 ?>
 
 <?php
@@ -298,9 +305,11 @@
 ?>
 
 <?php
-    echo "<hr />";
+    echo "<br />";
+    echo "<div class=\"sec_two\">";
     // table to combine filament ID, dendrite area, length and volume
-    echo "<table style=\"float: left;\">";
+    echo "<div class=\"left\">";
+    echo "<table id=\"table_wd2\" >";
     echo "<th>Filament ID</th>";
         foreach ($dendriteFilamentID as $key => $value) {
             echo "<tr>";
@@ -308,8 +317,10 @@
             echo "</tr>";
         }
     echo "</table>";
+    echo "</div>";
 
-    echo "<table style=\"float: left;\">";
+    echo "<div class=\"left\">";
+    echo "<table id=\"table_wd3\" style=\"float: left;\">";
     echo "<th>Dendrite Area</th>";
         foreach ($dendriteArea as $key => $value) {
             echo "<tr>";
@@ -317,8 +328,10 @@
             echo "</tr>";
         }
     echo "</table>";
+    echo "</div>";
 
-    echo "<table style=\"float: left;\">";
+    echo "<div class=\"left\">";
+    echo "<table id=\"table_wd4\" style=\"float: left;\">";
     echo "<th>Dendrite Length</th>";
         foreach ($dendriteLength as $key => $value) {
             echo "<tr>";
@@ -326,8 +339,10 @@
             echo "</tr>";
         }
     echo "</table>";
+    echo "</div>";
 
-    echo "<table>";
+    echo "<div class=\"left\">";
+    echo "<table id=\"table_wd5\" style=\"float: left;\">";
     echo "<th>Dendrite Volume</th>";
         foreach ($dendriteVolume as $key => $value) {
             echo "<tr>";
@@ -335,6 +350,8 @@
             echo "</tr>";
         }
     echo "</table>";
+    echo "</div>";
+    echo "</div>";
 ?>
 
 <?php
@@ -390,7 +407,7 @@
 
 <?php
     // script to process all the filament lengths
-    $inputFileName = 'data\wd\Filament Length (sum).xls';
+    $inputFileName = 'data\wd\Filament Dendrite Length (sum).xls';
 
     //  Read your Excel worksheet
     try {
@@ -476,10 +493,13 @@
     // echo "</pre>";
 ?>
 
+
 <?php
-    echo "<hr />";
+    // echo "<br />";
+    echo "<div class=\"right\">";
     // print out the table containing the data from filament dendrite area, length and volume (sum)
-    echo "<table style=\"float: left;\">";
+    echo "<div class=\"left\">";
+    echo "<table id=\"table_wd6\">";
     echo "<th>Filament ID</th>";
         foreach ($filDenID as $key => $value) {
             echo "<tr>";
@@ -487,8 +507,10 @@
             echo "</tr>";
         }
     echo "</table>";
+    echo "</div>";
 
-    echo "<table style=\"float: left;\">";
+    echo "<div class=\"left\">";
+    echo "<table id=\"table_wd7\" style=\"float: left;\">";
     echo "<th>Filament Dendrite Area (sum)</th>";
         foreach ($denAreaSum as $key => $value) {
             echo "<tr>";
@@ -496,17 +518,21 @@
             echo "</tr>";
         }
     echo "</table>";
+    echo "</div>";
 
-    echo "<table style=\"float: left;\">";
-    echo "<th>Filament Length (sum)</th>";
+    echo "<div class=\"left\">";
+    echo "<table id=\"table_wd8\" style=\"float: left;\">";
+    echo "<th>Filament Dendrite Length (sum)</th>";
         foreach ($filamentLength as $key => $value) {
             echo "<tr>";
             echo "<td>" . $value . "</td>";
             echo "</tr>";
         }
     echo "</table>";
+    echo "</div>";
 
-    echo "<table>";
+    echo "<div class=\"left\">";
+    echo "<table id=\"table_wd9\" style=\"float: left;\">";
     echo "<th>Filament Dendrite Volume (sum)</th>";
         foreach ($filDenVolume as $key => $value) {
             echo "<tr>";
@@ -514,5 +540,76 @@
             echo "</tr>";
         }
     echo "</table>";
-
+    echo "</div>";
+    echo "</div>";
+    // echo "<hr />";
 ?>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+$('table').addClass('striped bordered');
+</script>
+
+<button onclick="tablesToExcel(['table_wd1', 'table_wd2', 'table_wd3', 'table_wd4', 'table_wd5', 'table_wd6', 'table_wd7', 'table_wd8', 'table_wd9'],
+['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'], 'combined_file.xls', 'Excel')">Combine the above tables!</button>
+
+<script type="text/javascript">
+var tablesToExcel = (function() {
+  var uri = 'data:application/vnd.ms-excel;base64,'
+  , tmplWorkbookXML = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'
+    + '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"><Author>Axel Richter</Author><Created>{created}</Created></DocumentProperties>'
+    + '<Styles>'
+    + '<Style ss:ID="Currency"><NumberFormat ss:Format="Currency"></NumberFormat></Style>'
+    + '<Style ss:ID="Date"><NumberFormat ss:Format="Medium Date"></NumberFormat></Style>'
+    + '</Styles>'
+    + '{worksheets}</Workbook>'
+  , tmplWorksheetXML = '<Worksheet ss:Name="{nameWS}"><Table>{rows}</Table></Worksheet>'
+  , tmplCellXML = '<Cell{attributeStyleID}{attributeFormula}><Data ss:Type="{nameType}">{data}</Data></Cell>'
+  , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+  , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+  return function(tables, wsnames, wbname, appname) {
+    var ctx = "";
+    var workbookXML = "";
+    var worksheetsXML = "";
+    var rowsXML = "";
+
+    for (var i = 0; i < tables.length; i++) {
+      if (!tables[i].nodeType) tables[i] = document.getElementById(tables[i]);
+      for (var j = 0; j < tables[i].rows.length; j++) {
+        rowsXML += '<Row>'
+        for (var k = 0; k < tables[i].rows[j].cells.length; k++) {
+          var dataType = tables[i].rows[j].cells[k].getAttribute("data-type");
+          var dataStyle = tables[i].rows[j].cells[k].getAttribute("data-style");
+          var dataValue = tables[i].rows[j].cells[k].getAttribute("data-value");
+          dataValue = (dataValue)?dataValue:tables[i].rows[j].cells[k].innerHTML;
+          var dataFormula = tables[i].rows[j].cells[k].getAttribute("data-formula");
+          dataFormula = (dataFormula)?dataFormula:(appname=='Calc' && dataType=='DateTime')?dataValue:null;
+          ctx = {  attributeStyleID: (dataStyle=='Currency' || dataStyle=='Date')?' ss:StyleID="'+dataStyle+'"':''
+                 , nameType: (dataType=='Number' || dataType=='DateTime' || dataType=='Boolean' || dataType=='Error')?dataType:'String'
+                 , data: (dataFormula)?'':dataValue
+                 , attributeFormula: (dataFormula)?' ss:Formula="'+dataFormula+'"':''
+                };
+          rowsXML += format(tmplCellXML, ctx);
+        }
+        rowsXML += '</Row>'
+      }
+      ctx = {rows: rowsXML, nameWS: wsnames[i] || 'Sheet' + i};
+      worksheetsXML += format(tmplWorksheetXML, ctx);
+      rowsXML = "";
+    }
+
+    ctx = {created: (new Date()).getTime(), worksheets: worksheetsXML};
+    workbookXML = format(tmplWorkbookXML, ctx);
+
+    console.log(workbookXML);
+
+        var link = document.createElement("A");
+        link.href = uri + base64(workbookXML);
+        link.download = wbname || 'Workbook.xls';
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    })();
+</script>
