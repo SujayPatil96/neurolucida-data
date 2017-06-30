@@ -551,7 +551,9 @@ $('table').addClass('striped bordered');
 </script>
 
 <button onclick="tablesToExcel(['table_wd1', 'table_wd2', 'table_wd3', 'table_wd4', 'table_wd5', 'table_wd6', 'table_wd7', 'table_wd8', 'table_wd9'],
-['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'], 'combined_file.xls', 'Excel')">Combine the above tables!</button>
+['Sholl Analysis Data', 'Filament IDs (Dendrite)', 'Dendrite Area', 'Dendrite Length', 'Dendrite Volume', 'Filament IDs (Filament Dendrite)',
+'Filament Dendrite Area (sum)', 'Filament Dendrite Length (sum)', 'Filament Dendrite Volume (sum)'], 'combined_file.xls', 'Excel')">
+Combine the above tables!</button>
 
 <script type="text/javascript">
 var tablesToExcel = (function() {
