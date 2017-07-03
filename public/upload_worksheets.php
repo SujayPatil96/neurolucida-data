@@ -2,6 +2,13 @@
 <head>
     <title>Upload Status</title>
 </head>
+<link rel="stylesheet" href="css/main.css" />
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,700,700i" rel="stylesheet">
+<style type="text/css">
+    html {
+        font-family: Josefin Sans;
+    }
+</style>
 <h1 style="text-align: center;"><u>Upload Status of all the files</u></h1>
 
 <?php
@@ -17,16 +24,17 @@
     echo "<ul>";
         // for area sheet
         if (move_uploaded_file($_FILES["filament_tracer"]["tmp_name"], $target_filament_tracer)) {
-            echo "<li>The file ". basename( $_FILES["filament_tracer"]["name"]). " has been uploaded." . "<br /></li>";
+            echo "<li>The file <b>". basename( $_FILES["filament_tracer"]["name"]). "</b> has been uploaded." . "<br /></li>";
         } else {
             echo "<li>Sorry, there was an error uploading your file." . "<br /></li>";
         }
     echo "</ul>";
+    echo "<hr />";
 ?>
 
 <?php
     $inputFileType = 'Excel5';
-    $inputFileName = 'data/working_file.xls';
+    $inputFileName = 'data/wd/working_file.xls';
 
     /**  Create a new Reader of the type defined in $inputFileType  **/
     $objReader = PHPExcel_IOFactory::createReader($inputFileType);
@@ -44,10 +52,6 @@
             $shollSheetname = $value;
         }
     }
-
-    // print the sholl sheet name
-    // echo $shollSheetname;
-    // echo "<hr />";
 ?>
 
 <?php
@@ -61,44 +65,59 @@
     $xls->addExternalSheet($sheet1, 0);
     $xls->removeSheetByIndex(1);
     $xlsWriter = new PHPExcel_Writer_Excel5($xls);
-    $xlsWriter->save("data/wd/Dendrite Area.xls");
+    echo "<ul>";
+    if($xlsWriter->save("data/wd/Dendrite Area.xls") == 0) {
+        echo "<li>The <b>Dendrite Area.xls</b> file has been retreived.</li>";
+    }
 
     $sheet2 = $xlsTemplate->getSheetByName('Dendrite Length');
     $xls->addExternalSheet($sheet2, 0);
     $xls->removeSheetByIndex(1);
     $xlsWriter = new PHPExcel_Writer_Excel5($xls);
-    $xlsWriter->save("data/wd/Dendrite Length.xls");
+    if($xlsWriter->save("data/wd/Dendrite Length.xls") == 0) {
+        echo "<li>The <b>Dendrite Length.xls</b> file has been retreived.</li>";
+    }
 
     $sheet3 = $xlsTemplate->getSheetByName('Dendrite Volume');
     $xls->addExternalSheet($sheet3, 0);
     $xls->removeSheetByIndex(1);
     $xlsWriter = new PHPExcel_Writer_Excel5($xls);
-    $xlsWriter->save("data/wd/Dendrite Volume.xls");
+    if($xlsWriter->save("data/wd/Dendrite Volume.xls") == 0) {
+        echo "<li>The <b>Dendrite Volume.xls</b> file has been retreived.</li>";
+    }
 
     $sheet4 = $xlsTemplate->getSheetByName('Filament Dendrite Area (sum)');
     $xls->addExternalSheet($sheet4, 0);
     $xls->removeSheetByIndex(1);
     $xlsWriter = new PHPExcel_Writer_Excel5($xls);
-    $xlsWriter->save("data/wd/Filament Dendrite Area (sum).xls");
+    if($xlsWriter->save("data/wd/Filament Dendrite Area (sum).xls") == 0) {
+        echo "<li>The <b>Filament Dendrite Area (sum).xls</b> file has been retreived.</li>";
+    }
 
     $sheet5 = $xlsTemplate->getSheetByName('Filament Dendrite Length (sum)');
     $xls->addExternalSheet($sheet5, 0);
     $xls->removeSheetByIndex(1);
     $xlsWriter = new PHPExcel_Writer_Excel5($xls);
-    $xlsWriter->save("data/wd/Filament Dendrite Length (sum).xls");
+    if($xlsWriter->save("data/wd/Filament Dendrite Length (sum).xls") == 0) {
+        echo "<li>The <b>Filament Dendrite Length (sum).xls</b> file has been retreived.</li>";
+    }
 
     $sheet6 = $xlsTemplate->getSheetByName('Filament Dendrite Volume (sum)');
     $xls->addExternalSheet($sheet6, 0);
     $xls->removeSheetByIndex(1);
     $xlsWriter = new PHPExcel_Writer_Excel5($xls);
-    $xlsWriter->save("data/wd/Filament Dendrite Volume (sum).xls");
+    if($xlsWriter->save("data/wd/Filament Dendrite Volume (sum).xls") == 0) {
+        echo "<li>The <b>Filament Dendrite Volume (sum).xls</b> file has been retreived.</li>";
+    }
 
     $sheet7 = $xlsTemplate->getSheetByName($shollSheetname);
     $xls->addExternalSheet($sheet7, 0);
     $xls->removeSheetByIndex(1);
     $xlsWriter = new PHPExcel_Writer_Excel5($xls);
-    $xlsWriter->save("data/wd/" . $shollSheetname . ".xls");
-
+    if($xlsWriter->save("data/wd/" . $shollSheetname . ".xls") == 0) {
+        echo "<li>The <b>" . $shollSheetname . ".xls</b> file has been retreived.</li>";
+    }
+    echo "</ul>";
 ?>
 
 <!DOCTYPE HTML>
