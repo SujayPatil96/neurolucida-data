@@ -36,6 +36,10 @@
     <div id="content">
 	<br>
     <h1>Brief Documentation.</h1>
+	<p>1. Please rename your file to <b>working_file.xls</b> before uploading it.</p>
+	<p>2. Click on Submit.</p>
+	<p>3. Check upload status of the necessary files on the next page.</p>
+	<p>4. If everything is okay, then click on 'Process'.</p>
 
 	<form action="upload_worksheets.php" method="post" enctype="multipart/form-data" id="admin_panel">
 
@@ -45,10 +49,12 @@
 
 	<label for="filament_tracer">Attach the Filament Tracer Excel sheet here:</label>
 	<input type="file" id="filament_tracer" name="filament_tracer" />
-	<br /><br />
 
+	<br /><br />
 	<button type="submit" name="submit" id="submit">Submit</button>
 	</form>
+  </div>
+</div>
 
 </body>
 </html>
