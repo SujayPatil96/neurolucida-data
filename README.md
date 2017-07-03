@@ -1,2 +1,2 @@
 # neurolucida-data
-Combining Excel data into a more readable format
+Combining Excel data from Imaris into a more readable format, like Neurolucida.
